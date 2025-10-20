@@ -24,8 +24,11 @@ app.use(express.json())
     return res.status(200).send({msg:"Hello From Server..."})
  })
 
+ //public routes
  app.use("/api/auth/login",loginRoute)
  app.use("/api/auth/register",registerRoute)
+
+ //protected routes unser authMiddleware (verifyToken)
   app.use("/api/user",verifyToken,userRoute)
 
 
