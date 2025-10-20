@@ -3,7 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const userRoute = require('./routes/userRoute')
-
+const loginRoute = require('./routes/loginRoute')
+const registerRoute  = require('./routes/registerRoute')
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 
@@ -24,6 +25,8 @@ app.use(express.json())
  })
 
  app.use("/api/user",userRoute)
+ app.use("/api/auth/login",loginRoute)
+ app.use("/api/auth/register",registerRoute)
 
  app.listen(PORT,()=>{
     console.log(`server running on port : ${PORT}`)

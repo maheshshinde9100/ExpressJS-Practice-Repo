@@ -1,27 +1,26 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const User = require('../models/userModel')
-const router = express.Router()
+const express = require('express');
+const mongoose = require('mongoose');
+const User = require('../models/userModel'); // ✅ changed to require
+const router = express.Router();
 
 router.get('/', async (req, res) => {
-    try {
-        const users = await User.find()
-        return res.status(200).json(users)
-    } catch (err) {
-        console.error(err)
-        return res.status(500)
-            .json({ error: 'server error' })
-    }
+  try {
+    const users = await User.find();
+    return res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'server error' });
+  }
 });
 
 router.post('/', async (req, res) => {
   try {
-    const userData = req.body
-    const user = await User.create(userData)
-    return res.status(201).json(user)
+    const userData = req.body;
+    const user = await User.create(userData);
+    return res.status(201).json(user);
   } catch (err) {
-    console.error(err)
-    return res.status(400).json({ error: err.message || 'invalid data' })
+    console.error(err);
+    return res.status(400).json({ error: err.message || 'invalid data' });
   }
 });
 
