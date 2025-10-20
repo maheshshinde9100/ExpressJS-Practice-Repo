@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
-
+const verifyToken = require('./middleware/authMiddleware')
 const userRoute = require('./routes/userRoute')
 const loginRoute = require('./routes/loginRoute')
 const registerRoute  = require('./routes/registerRoute')
@@ -24,9 +24,10 @@ app.use(express.json())
     return res.status(200).send({msg:"Hello From Server..."})
  })
 
- app.use("/api/user",userRoute)
  app.use("/api/auth/login",loginRoute)
  app.use("/api/auth/register",registerRoute)
+  app.use("/api/user",verifyToken,userRoute)
+
 
  app.listen(PORT,()=>{
     console.log(`server running on port : ${PORT}`)
