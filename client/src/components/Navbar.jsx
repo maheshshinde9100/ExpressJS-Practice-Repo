@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 function Navbar() {
+  const {user,logout} = useContext(AuthContext);
   return (
     <nav className="bg-amber-800 px-6 py-3 shadow-md">
       <ul className="flex space-x-6 items-center">
@@ -13,7 +15,16 @@ function Navbar() {
             Home
           </Link>
         </li>
-        <li>
+        {user?(
+          <li>
+          <button className="text-white hover:text-amber-300 font-semibold transition-colors"
+          onClick={logout}>
+            Log Out
+            </button> 
+            </li>
+        ):(
+          <>
+          <li>
           <Link
             to="/login"
             className="text-white hover:text-amber-300 font-semibold transition-colors"
@@ -29,6 +40,9 @@ function Navbar() {
             Register
           </Link>
         </li>
+        </>
+        )}
+        
       </ul>
     </nav>
   );
