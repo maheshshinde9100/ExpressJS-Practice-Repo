@@ -7,13 +7,15 @@ const loginRoute = require('./routes/loginRoute')
 const registerRoute  = require('./routes/registerRoute')
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
-
+const cors = require('cors')
 
 mongoose.connect(MONGO_URI)
 .then(()=> console.log("mongodb connected succesfully..."))
 .catch(()=> console.error('mongodb connection error...'))
 
 const app = express()
+
+app.use(cors())
 app.use(express.json())
 
  app.get('/',(req,res)=>{
