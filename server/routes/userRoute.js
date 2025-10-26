@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('../models/userModel'); 
+const User = require('../models/userModel');
+const UserDTO = require('../dto/UserDTO')
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -43,6 +44,17 @@ router.put('/:username', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(400).json({ error: err.message || 'Update error' });
+  }
+});
+
+router.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    const formattedUsers = users.map(UserDTO);
+    return res.status(200).json(formattedUsers);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
   }
 });
 
